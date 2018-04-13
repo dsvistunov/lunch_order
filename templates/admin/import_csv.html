@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload CSV</button>
+            {% if success %}
+                <h3>Success</h3>
+            {% endif %}
+        </form>
+    </div>
+    <br />
+
+{% endblock %}
