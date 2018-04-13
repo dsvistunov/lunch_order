@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.template import RequestContext, Context
 from django.template.loader import get_template
 
 from .forms import CsvImportForm
@@ -23,7 +22,8 @@ def import_csv(request):
                 username, _ = line[2].split('@')
                 password = User.objects.make_random_password(
                     length=10,
-                    allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+                    allowed_chars='abcdefghjkmnpqrstuvwxyz'
+                                  'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
                 )
                 User.objects.create_user(
                     username=username,
