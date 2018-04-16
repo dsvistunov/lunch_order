@@ -7,6 +7,16 @@ from django.shortcuts import render, redirect
 from django.template.loader import get_template
 
 from .forms import CsvImportForm
+from .models import Product
+
+
+def index(request):
+    data = Product.objects.all()
+    content = {
+        'products': data
+    }
+    return render(request, "index.html", content)
+
 
 
 @staff_member_required
