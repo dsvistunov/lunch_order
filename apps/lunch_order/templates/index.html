@@ -1,26 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for product in products %}
-        <p>{{ product }}</p>
-    {% endfor %}
-    {% for product in products %}
-        {{ product.full_name|upper }}<br />
-    {% endfor %}
-
-    <div class="pagination">
-        <span class="step-links">
-            {% if products.has_previous %}
-                <a href="?page={{ products.previous_page_number }}">Previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ products.number }} of {{ products.paginator.num_pages }}.
-            </span>
-
-            {% if products.has_next %}
-                <a href="?page={{ products.next_page_number }}">next</a>
-            {% endif %}
-        </span>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-4 h1">{% now "jS F Y" %}</div>
+            <div class="col-lg-8 text-right" id="header-user">{{ user }}
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-lg-2 h4">Products:</div>
+        <div class="col-lg-10 text-right">Log in to make order</div>
+    </div>
+    <table class="table borderless">
+        <tr>
+            <th>Title</th>
+            <th>Manufacturer</th>
+            <th>Price</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+            <td>{{ product.title }}</td>
+            <td>{{ product.manufacturer }}</td>
+            <td>{{ product.price }}</td>
+            <td><span class="glyphicon glyphicon-plus"></span></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if products.has_other_pages %}
+            <ul class="pager">
+                {% for i in products.paginator.page_range %}
+                    {% if products.number == i %}
+                        <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+    {% endif %}
 {% endblock %}
