@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from apps.lunch_order.views import import_csv
+from apps.lunch_order import urls as lunch_order_urls
 
 urlpatterns = [
-    url(r'^admin/import', import_csv, name="import"),
+    url(r'^', include(lunch_order_urls)),
     url(r'^admin/', admin.site.urls),
 ]
