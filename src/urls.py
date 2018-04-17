@@ -17,8 +17,10 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from apps.lunch_order import urls as lunch_order_urls
+from apps.api import urls as api_urls
 
 urlpatterns = [
     url(r'^', include(lunch_order_urls)),
+    url(r'^api/', include(api_urls)),
     url(r'^admin/', admin.site.urls),
 ]
