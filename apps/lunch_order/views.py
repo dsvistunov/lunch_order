@@ -48,7 +48,8 @@ def import_csv(request):
                     password=password,
                     first_name=line[0],
                     last_name=line[1],
-                    email=line[2]
+                    email=line[2],
+                    is_staff=True
                 )
                 context = {
                     'user': username,
