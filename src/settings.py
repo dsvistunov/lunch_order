@@ -129,3 +129,5 @@ STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+
+LOGIN_REDIRECT_URL = 'index'
