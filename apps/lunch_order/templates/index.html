@@ -3,15 +3,26 @@
 {% block content %}
     <div class="page-header">
         <div class="row">
-            <div class="col-lg-4 h1">{% now "jS F Y" %}</div>
-            <div class="col-lg-8 text-right" id="header-user">{{ user }}
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <div class="col-lg-5 h1">{% now "jS F Y" %}</div>
+            <div class="col-lg-7 text-right" id="header-user">
+                {% if user.is_authenticated %}
+                    <p>{{ user }}/<a href="{% url 'logout' %}">Logout</a></p>
+                {% else %}
+                    {{ user }}
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                {% endif %}
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-2 h4">Products:</div>
-        <div class="col-lg-10 text-right">Log in to make order</div>
+        <div class="col-lg-10 text-right">
+            {% if user.is_authenticated %}
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            {% else %}
+                <a href="{% url "login" %}">Login to make order</a>
+            {% endif %}
+        </div>
     </div>
     <table class="table borderless">
         <tr>
