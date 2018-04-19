@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="page-header">
@@ -25,29 +26,14 @@
         </div>
     </div>
     <table class="table borderless">
-        <tr>
-            <th>Title</th>
-            <th>Manufacturer</th>
-            <th>Price</th>
-        </tr>
-        {% for product in products %}
-            <tr>
-            <td>{{ product.title }}</td>
-            <td>{{ product.manufacturer }}</td>
-            <td>{{ product.price }}</td>
-            <td><span class="glyphicon glyphicon-plus"></span></td>
-            </tr>
-        {% endfor %}
+    <tr>
+        <th>title</th>
+        <th>munufact</th>
+        <th>price</th>
+    </tr>
     </table>
-    {% if products.has_other_pages %}
-            <ul class="pager">
-                {% for i in products.paginator.page_range %}
-                    {% if products.number == i %}
-                        <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
-                    {% else %}
-                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-    {% endif %}
+
+    <ul id="pagination"></ul>
 {% endblock %}
+
+{% block javascript %}<script src="{% static 'js/products.js' %}"></script>{% endblock %}
