@@ -3,28 +3,14 @@ import csv
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 
 from .forms import CsvImportForm
-from .models import Product
 
 
 def index(request):
-    data = Product.objects.all()
-    paginator = Paginator(data, 5)
-    page = request.GET.get('page')
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        products = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        products = paginator.page(paginator.num_pages)
-
-    return render(request, 'index.html', {'products': products})
+    return render(request, 'index.html', {})
 
 
 @staff_member_required
