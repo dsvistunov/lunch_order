@@ -1,5 +1,4 @@
 import datetime
-from django.utils import timezone
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from apps.lunch_order.models import Product, Order
 
@@ -24,7 +23,11 @@ class ProductSerializer(ModelSerializer):
 
 
 class OrderCreateSerializer(ModelSerializer):
-    product = PrimaryKeyRelatedField(source='product_set', many=True, queryset=Product.objects.all())
+    product = PrimaryKeyRelatedField(
+        source='product_set',
+        many=True,
+        queryset=Product.objects.all()
+    )
 
     class Meta:
         model = Order
