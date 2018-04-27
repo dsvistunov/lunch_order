@@ -2,7 +2,7 @@ $(document).ready(function () {
     var user = $(".user").attr('value');
     var order = {
         owner: user,
-        product: ''
+        products: ''
     };
 
     $.get('api/products', function (data) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
     $("body").on("click", "tr", function () {
         var product_id = $(this).attr('value');
-        order.product = product_id;
+        order.products = product_id;
         console.log(order);
         function csrfSafeMethod(method) {
             // these HTTP methods do not require CSRF protection
