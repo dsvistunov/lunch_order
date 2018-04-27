@@ -12,7 +12,7 @@ class UserModelAdmin(admin.ModelAdmin):
 
 
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "manufacturer", "price"]
+    list_display = ["title", "manufacturer", "price"]
 
     class Meta:
         model = Product
