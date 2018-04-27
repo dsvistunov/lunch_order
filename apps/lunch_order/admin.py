@@ -18,14 +18,14 @@ class ProductModelAdmin(admin.ModelAdmin):
         model = Product
 
 
-class ProductInLine(admin.TabularInline):
-    model = Product.order.through
+class ProductsInLine(admin.TabularInline):
+    model = Order.products.through
 
 
 class OrderModelAdmin(admin.ModelAdmin):
     list_display = ["owner", "date", "id"]
     inlines = [
-        ProductInLine,
+        ProductsInLine,
     ]
 
     class Meta:
