@@ -4,8 +4,8 @@
 {% block content %}
     <div class="page-header">
         <div class="row">
-            <div class="col-lg-5 h1">{% now "jS F Y" %}</div>
-            <div class="col-lg-7 text-right" id="header-user">
+            <div class="col-lg-6 h1">{% now "jS F Y" %}</div>
+            <div class="col-lg-6 text-right" id="header-user">
                 {% if user.is_authenticated %}
                     <div class="user" value="{{ user.id }}">{{ user }}/<a href="{% url 'logout' %}">Logout</a></div>
                 {% else %}
@@ -34,6 +34,14 @@
     </table>
 
     <ul id="pagination"></ul>
+
+    <div id="order-list"></div>
+
+    <div id="root"></div>
+
 {% endblock %}
 
-{% block javascript %}<script src="{% static 'js/products.js' %}"></script>{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/products.js' %}"></script>
+    <script src="{% static 'js/orders.ui.js' %}"></script>
+{% endblock %}

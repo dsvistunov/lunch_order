@@ -2,7 +2,7 @@ $(document).ready(function () {
     var user = $(".user").attr('value');
     var order = {
         owner: user,
-        products: ''
+        products: []
     };
 
     $.get('api/products', function (data) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
     $("body").on("click", "tr", function () {
         var product_id = $(this).attr('value');
-        order.products = product_id;
+        order.products.push(product_id);
         console.log(order);
         function csrfSafeMethod(method) {
             // these HTTP methods do not require CSRF protection
@@ -66,17 +66,20 @@ $(document).ready(function () {
                 }
             }
         });
-        $.ajax({
-            url: 'api/create/',
-            method: 'post',
-            data: order,
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        })
+        // $.ajax({
+        //     url: 'api/create/',
+        //     method: 'post',
+        //     data: order,
+        //     success: function (data) {
+        //         console.log(data)
+        //     },
+        //     error: function (error) {
+        //         console.log(error)
+        //     }
+        // })
+        $("#order-list").append(`
+            <div>${product_id}</div>
+        `)
     });
 
 });
