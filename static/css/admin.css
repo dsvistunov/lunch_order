@@ -1,0 +1,35 @@
+#header {
+    display: inline-block;
+    width: 100px;
+    height: 660px;
+    margin: 0px;
+    padding: 0px;
+}
+#branding {
+    float: none;
+    text-align: center;
+    padding: 10px;
+}
+.nav p {
+    padding: 20px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    background-color: #999
+}
+#content {
+    width: 80%;
+    display: inline-block;
+    position: absolute;
+}
+h1 {
+    text-align: center;
+}
+.object-tools {
+    float: left;
+}
+.module ul, .module ol {
+    margin-top: 30px;
+}
+#footer {
+    padding: 0px;
+}

@@ -1,0 +1,16 @@
+#header-user {
+            margin-top: 25px;
+        }
+.table tbody tr th {
+    border: none;
+}
+.table tbody tr td {
+    border: none;
+}
+li.active span{
+    background-color: #337ab7;
+    border-color: #eee;
+}
+.jumbotron{
+    margin-top: 30px;
+}

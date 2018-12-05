@@ -36,6 +36,7 @@ class OrderCreateSerializer(ModelSerializer):
         ]
 
     def create(self, validated_data):
+        print('Data: ', validated_data)
         product = validated_data.pop('products')
         owner = validated_data.pop('owner')
         order, created = Order.objects.get_or_create(
@@ -43,5 +44,17 @@ class OrderCreateSerializer(ModelSerializer):
             date=datetime.date.today(),
             defaults={'owner': owner}
         )
-        OrderItem.objects.create(order=order, product=product[0])
+        orderItem, createdOrderItem = OrderItem.objects.get_or_create(
+            order=order, 
+            product=product[0],
+            count=1,
+            defaults={'product': product[0]}
+        )
+
+        if createdOrderItem:
+            pass
+        else:
+            orderItem.count +=1
+            orderItem.save()
+
         return order

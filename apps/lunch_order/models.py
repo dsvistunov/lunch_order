@@ -21,5 +21,6 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    count = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

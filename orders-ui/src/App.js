@@ -4,7 +4,9 @@ import * as Constants from './constants'
 
 @connect((state) => ({
   products: state.products.data,
-  orders: state.orders
+  orders: state.orders,
+  loading: state.products.loading,
+  error: state.products.error
 }))
 
 export default class App extends Component {
@@ -18,11 +20,20 @@ export default class App extends Component {
     // should be reduce
     Object.keys(orders).forEach((productId) => {
       const order = orders[productId]
-      const price = order.product.price * order.count
+      const price = order.price * order.count
       totalCount += price      
     })
 
     return totalCount
+  }
+
+  componentDidMount() {
+    this.props.dispatch(Constants.FETCH_PRODUCTS_ACTION())
+    console.log(this.props)
+  }
+
+  componentDidUpdate() {
+    console.log(this.props)
   }
 
   addProductToOrder = (product = {}) => {
@@ -54,12 +65,13 @@ export default class App extends Component {
     />
   )
 
-  _renderOrderItem = ({count, product} = {}) => (
+  _renderOrderItem = (product = {}) => (
     <tr key={ product.id }>
-      <td>{ product.name }</td>
+      <td>{ product.title }</td>
+      <td>{ product.manufacturer }</td>
       <td>{ product.price }</td>
-      <td>{ count }</td>
-      <td>{ count * product.price }</td>
+      <td>{ product.count }</td>
+      <td>{ product.count * product.price }</td>
       <td>
         <button
           onClick={ () => { this.addProductToOrder(product) }}
@@ -73,24 +85,31 @@ export default class App extends Component {
         >-</button>
       </td>
     </tr>
-  ) 
+  )
+
+  makeOrder = () => {
+    this.props.dispatch(Constants.FETCH_ORDERS_ACTION(this.props.orders))
+  }
 
   _renderOrdersList = () => (
-    <table className="orders-list">
-      <tbody>
-        {
-          Object.keys(this.props.orders).map(productId =>
-            this._renderOrderItem(this.props.orders[productId])
-          )
-        }
-        <tr className="total-count">
-          <td>Total</td>
-          <td>
-            { this.totalCount }
-          </td>
-        </tr>
-      </tbody>
-    </table> 
+    <div>
+      <table className="table borderless">
+        <tbody>
+          {
+            Object.keys(this.props.orders).map(productId => 
+              this._renderOrderItem(this.props.orders[productId])
+            )
+          }
+          <tr className="total-count">
+            <td>Total</td>
+            <td>
+              { this.totalCount }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button onClick={ () => { this.makeOrder() }}>Make order</button>
+    </div>
   )
 
   render() {
@@ -111,8 +130,9 @@ export const ProductItem = ({
   product = {},
   addProductToOrder
 }) => (
-  <tr>
-    <td>{ product.name }</td>
+  <tr className='product'>
+    <td>{ product.title }</td>
+    <td>{ product.manufacturer }</td>
     <td>{ product.price }</td>
     <td>
       <button 
@@ -128,12 +148,11 @@ export const ProductList = ({
   products = [],
   renderProductItem
 } = {}) => (
-  <table className="products-list">
-    <tbody>
-      {
-        products.map(product => renderProductItem(product))
-      }
-    </tbody>
-  </table>
-)
-
+      <table className="table borderless">
+        <tbody>
+          {
+            products.map(product => renderProductItem(product))
+          }
+        </tbody>
+      </table>
+    ) 
